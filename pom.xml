@@ -1,106 +1,3 @@
-<plugin>
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-compiler-plugin</artifactId>
-  <version>3.13.0</version>
-  <executions>
-    <execution>
-      <id>default-compile</id>
-      <goals>
-        <goal>compile</goal>
-      </goals>
-      <configuration>
-        <fork>true</fork>
-        <compilerArgs>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
-          <arg>--add-exports</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-          <arg>--add-exports</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-        </compilerArgs>
-      </configuration>
-    </execution>
-    <execution>
-      <id>default-testCompile</id>
-      <goals>
-        <goal>testCompile</goal>
-      </goals>
-      <configuration>
-        <fork>true</fork>
-        <compilerArgs>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
-          <arg>--add-opens</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
-          <arg>--add-exports</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
-          <arg>--add-exports</arg>
-          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
-        </compilerArgs>
-      </configuration>
-    </execution>
-  </executions>
-  <configuration>
-    <encoding>UTF-8</encoding>
-    <source>17</source>
-    <target>17</target>
-  </configuration>
-</plugin>
-🔁 Luego de modificar:
-Guarda y sube el pom.xml al repositorio.
-
-Vuelve a ejecutar el pipeline en Jenkins.
-
-💡 Alternativa recomendada (mejor a largo plazo)
-Aunque con --add-opens funciona, es un workaround. Una mejor práctica es usar Lombok con el plugin lombok-maven-plugin o simplemente evitar reflejar clases internas del compilador.
-
-También puedes usar Java 11, que no requiere tanto hackeo con módulos para Lombok.
-
-¿Quieres que te entregue un pom.xml completamente listo con esta nueva configuración para copiar y pegar?
-
-
-
-
-
-
-
-Tú dijiste:
-si
-
-
-ChatGPT Plus
-Aquí tienes un pom.xml listo para copiar y pegar, con:
-
-Java 17
-
-Configuración correcta de Lombok
-
-Flags --add-opens y --add-exports para que funcione en Jenkins
-
-Soporte para mvn clean test sin errores de acceso a módulos internos
-
-✅ pom.xml completo
-xml
-Copiar
-Editar
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -113,8 +10,8 @@ Editar
     <packaging>jar</packaging>
 
     <properties>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
