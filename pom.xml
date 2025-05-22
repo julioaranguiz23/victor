@@ -81,6 +81,14 @@
             <version>2.0.13</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Lombok (necesario para compilar correctamente en Jenkins) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.28</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
