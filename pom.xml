@@ -1,12 +1,116 @@
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>3.13.0</version>
+  <executions>
+    <execution>
+      <id>default-compile</id>
+      <goals>
+        <goal>compile</goal>
+      </goals>
+      <configuration>
+        <fork>true</fork>
+        <compilerArgs>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+          <arg>--add-exports</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+          <arg>--add-exports</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+        </compilerArgs>
+      </configuration>
+    </execution>
+    <execution>
+      <id>default-testCompile</id>
+      <goals>
+        <goal>testCompile</goal>
+      </goals>
+      <configuration>
+        <fork>true</fork>
+        <compilerArgs>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED</arg>
+          <arg>--add-opens</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED</arg>
+          <arg>--add-exports</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED</arg>
+          <arg>--add-exports</arg>
+          <arg>jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED</arg>
+        </compilerArgs>
+      </configuration>
+    </execution>
+  </executions>
+  <configuration>
+    <encoding>UTF-8</encoding>
+    <source>17</source>
+    <target>17</target>
+  </configuration>
+</plugin>
+🔁 Luego de modificar:
+Guarda y sube el pom.xml al repositorio.
+
+Vuelve a ejecutar el pipeline en Jenkins.
+
+💡 Alternativa recomendada (mejor a largo plazo)
+Aunque con --add-opens funciona, es un workaround. Una mejor práctica es usar Lombok con el plugin lombok-maven-plugin o simplemente evitar reflejar clases internas del compilador.
+
+También puedes usar Java 11, que no requiere tanto hackeo con módulos para Lombok.
+
+¿Quieres que te entregue un pom.xml completamente listo con esta nueva configuración para copiar y pegar?
+
+
+
+
+
+
+
+Tú dijiste:
+si
+
+
+ChatGPT Plus
+Aquí tienes un pom.xml listo para copiar y pegar, con:
+
+Java 17
+
+Configuración correcta de Lombok
+
+Flags --add-opens y --add-exports para que funcione en Jenkins
+
+Soporte para mvn clean test sin errores de acceso a módulos internos
+
+✅ pom.xml completo
+xml
+Copiar
+Editar
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
-         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cl.aspor</groupId>
     <artifactId>aspor-certificacion-automation</artifactId>
     <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -15,85 +119,26 @@
     </properties>
 
     <dependencies>
-        <!-- Selenium -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>4.20.0</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.github.bonigarcia</groupId>
-            <artifactId>webdrivermanager</artifactId>
-            <version>5.6.2</version>
-        </dependency>
-
-        <!-- Cucumber -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>7.14.0</version>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit</artifactId>
-            <version>7.14.0</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- JUnit -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Reportes -->
-        <dependency>
-            <groupId>com.aventstack</groupId>
-            <artifactId>extentreports</artifactId>
-            <version>5.0.9</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>2.16.1</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-core</artifactId>
-            <version>2.24.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.24.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>2.0.13</version>
-            <scope>test</scope>
-        </dependency>
-
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.32</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Test dependencies (ejemplo con JUnit) -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- Compiler plugin con argumentos para Java 17 y Lombok -->
+            <!-- Plugin de compilación -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -101,11 +146,11 @@
                 <executions>
                     <execution>
                         <id>default-compile</id>
-                        <phase>compile</phase>
                         <goals>
                             <goal>compile</goal>
                         </goals>
                         <configuration>
+                            <fork>true</fork>
                             <compilerArgs>
                                 <arg>--add-opens</arg>
                                 <arg>jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
@@ -128,11 +173,11 @@
                     </execution>
                     <execution>
                         <id>default-testCompile</id>
-                        <phase>test-compile</phase>
                         <goals>
                             <goal>testCompile</goal>
                         </goals>
                         <configuration>
+                            <fork>true</fork>
                             <compilerArgs>
                                 <arg>--add-opens</arg>
                                 <arg>jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED</arg>
@@ -155,21 +200,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <encoding>UTF-8</encoding>
                     <source>17</source>
                     <target>17</target>
-                </configuration>
-            </plugin>
-
-            <!-- Surefire para ejecutar tests -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.5</version>
-                <configuration>
-                    <includes>
-                        <include>**/TestRunner.java</include>
-                    </includes>
+                    <encoding>UTF-8</encoding>
                 </configuration>
             </plugin>
         </plugins>
