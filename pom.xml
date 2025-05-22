@@ -100,4 +100,21 @@
         </plugins>
     </build>
 </project>
+<properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+</properties>
 
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.13.0</version>
+            <configuration>
+                <encoding>UTF-8</encoding>
+                <source>17</source> <!-- o el que estés usando -->
+                <target>17</target>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
